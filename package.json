@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "format:check": "npx prettier -c \"src/**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
+    "format:write": "npx prettier --write \"src/**/*.{js,json,css,scss,less,md,ts,html,component.html}\""
   },
   "private": true,
   "dependencies": {
@@ -29,8 +31,20 @@
     "@angular/cli": "~10.0.6",
     "@angular/compiler-cli": "~10.0.9",
     "@types/node": "^12.11.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "tslint --fix",
+    "src/**/*.{js,json,css,scss,less,md,ts,html,component.html}": "prettier --write"
   }
 }
