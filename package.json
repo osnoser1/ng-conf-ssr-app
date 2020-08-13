@@ -5,11 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod --localize",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "format:check": "npx prettier -c \"src/**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
-    "format:write": "npx prettier --write \"src/**/*.{js,json,css,scss,less,md,ts,html,component.html}\""
+    "format:write": "npx prettier --write \"src/**/*.{js,json,css,scss,less,md,ts,html,component.html}\"",
+    "translate": "ng xi18n --output-path src/locale --out-file source.xlf"
   },
   "private": true,
   "dependencies": {

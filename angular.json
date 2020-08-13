@@ -4,6 +4,15 @@
   "newProjectRoot": "projects",
   "projects": {
     "ng-conf-ssr-app": {
+      "i18n": {
+        "sourceLocale": {
+          "baseHref": "/",
+          "code": "en"
+        },
+        "locales": {
+          "es": "src/locale/source.es.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -87,6 +96,9 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "es": {
+              "localize": ["es"]
             }
           }
         },
@@ -98,6 +110,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ng-conf-ssr-app:build:production"
+            },
+            "es": {
+              "browserTarget": "ng-conf-ssr-app:build:es"
             }
           }
         },
