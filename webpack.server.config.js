@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     // This is our Express server for Dynamic universal
     server: './server.ts',
+    prerender: './prerender.ts',
   },
   externals: {
     './dist/ng-conf-ssr-app/server/en/main': 'require("./server/en/main")',

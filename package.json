@@ -14,8 +14,9 @@
     "translate": "ng xi18n --output-path src/locale --out-file source.xlf",
     "dev:ssr": "ng run ng-conf-ssr-app:serve-ssr",
     "serve:ssr": "node dist/ng-conf-ssr-app/server",
-    "build:ssr": "npm run build:prod && ng run ng-conf-ssr-app:server:production --localize && npm run compile:server",
+    "build:ssr": "npm run build:prod && ng run ng-conf-ssr-app:server:production --localize && npm run compile:server && npm run prerender:ssr",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
+    "prerender:ssr": "node dist/ng-conf-ssr-app/prerender",
     "prerender": "ng run ng-conf-ssr-app:prerender"
   },
   "private": true,

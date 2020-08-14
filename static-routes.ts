@@ -12,10 +12,16 @@ export const ROUTES = [
     path: '/es/*',
     view: 'es/index',
     bundle: require('./dist/ng-conf-ssr-app/server/es/main'),
+    childrenRoutes: [
+      '',
+    ],
   },
   {
     path: '/*',
     view: 'en/index',
     bundle: require('./dist/ng-conf-ssr-app/server/en/main'),
+    childrenRoutes: [
+      '',
+    ],
   },
 ];

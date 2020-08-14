@@ -1,6 +1,7 @@
 import 'zone.js/dist/zone-node';
 
 import * as express from 'express';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import { ROUTES } from './static-routes';
@@ -25,11 +26,23 @@ export function app(): express.Express {
   server.get('*.*', express.static(distFolder, { maxAge: '1y' }));
   server.get('*.*', express.static(join(distFolder, 'en'), { maxAge: '1y' }));
 
-  
   // All regular routes use the Universal engine
   ROUTES.forEach(route => {
+    const fullPath = join(distFolder, route.view.replace('index', ''));
+    const routeView =
+      route.view + (existsSync(join(distFolder, "index.original.html")) ? ".original.html" : "");
+      
     server.get(route.path, (req, res) => {
-      res.render(route.view, {
+      const path = req.path.substr(1).replace(/^es\//, '');
+      
+      // Pre-render if possible
+      if (route.childrenRoutes.includes(path)) {
+        const html = prerender(res, fullPath, path);
+        return res.send(html);
+      }
+
+      // Server side rendering
+      res.render(routeView, {
         req,
         res,
         engine: route.bundle.ngExpressEngine({
@@ -41,6 +54,12 @@ export function app(): express.Express {
   });
 
   return server;
+}
+
+function prerender(res: express.Response, fullPath: string, path: string) {
+  const filePath = join(fullPath, path, `${path === "" ? "index" : path}.html`);
+  const document = readFileSync(filePath, "utf8").toString();
+  return document;
 }
 
 function run(): void {
