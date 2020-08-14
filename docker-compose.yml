@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web-app:
+    build:
+      context: .
+    networks:
+      - app-network
+
+  nginx-server:
+    image: nginx:1.17.10-alpine
+    ports:
+      - 5000:5000
+    volumes:
+      - ./deploy/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web-app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
